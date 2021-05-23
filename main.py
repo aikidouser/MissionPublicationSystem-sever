@@ -1,5 +1,5 @@
 #%%
-from AccountMenege import AccountMenege
+from AccountManage import AccountManage
 
 #%%
 if __name__ == "__main__":
@@ -8,7 +8,7 @@ if __name__ == "__main__":
         creat_ac = int(input('signup?: '))
         account = input('account: ')            #Get account
         password = input('password: ')          #Get password
-        user = AccountMenege(account, password) 
+        user = AccountManage(account, password) 
         
         if(creat_ac):
 
