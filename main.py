@@ -1,37 +1,19 @@
 #%%
-from AccountManage import AccountManage
+import socket
+from TServer import MyServer
 
 #%%
-if __name__ == "__main__":
+if __name__ == '__main__':
     
-    while(True):
-        creat_ac = int(input('signup?: '))
-        account = input('account: ')            #Get account
-        password = input('password: ')          #Get password
-        user = AccountManage(account, password) 
+    HOST = '140.115.200.115'
+    PORT = 8000
+    
+    s_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s_socket.bind((HOST, PORT))
+    s_socket.listen(5)
+    print('Sever ir ready')
+    
+    while True:
         
-        if(creat_ac):
-
-            username = input('username: ')
-            
-            if_suc_signup = user.signup(username)
-            
-            if(if_suc_signup):
-                print('You did it')             #return signup success
-            else:
-                print('rrrrr')                  #return signup fail
-        
-        else:
-            if_suc_signin = user.signin()
-            
-            if(if_suc_signin):
-                print('Wellcome')               #return signin success
-            else:
-                print('Wrong')                  #return signin fail
-                    
-
-# =============================================================================
-# with open ('test_json.json', 'r') as jsonfile:
-#     
-#     data = json.load(jsonfile)
-# =============================================================================
+        c_socket, c_adr = s_socket.accept()
+        MyServer(c_socket, c_adr).start()

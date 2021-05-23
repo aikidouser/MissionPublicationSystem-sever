@@ -1,5 +1,9 @@
 #%%
 import json
+import threading
+
+#%%
+Tlock = threading.Lock()
 
 #%%
 class AccountManage:
@@ -16,6 +20,7 @@ class AccountManage:
                      'account' : self.account,
                      'password' : self.password}
         
+        Tlock.acquire()
         try:
             with open ('user_info.json', 'r') as json_file:
                 data = json.load(json_file)
@@ -29,6 +34,8 @@ class AccountManage:
         with open('user_info.json', 'w', ) as json_file:
             data.append(user_dict)
             json.dump(data, json_file)
+            
+        Tlock.release()
         
         return True     #Success signup
     
@@ -53,3 +60,30 @@ class AccountManage:
             
         return False
     
+#%%
+if __name__ == "__main__":
+    
+    while(True):
+        creat_ac = int(input('signup?: '))
+        account = input('account: ')            #Get account
+        password = input('password: ')          #Get password
+        user = AccountManage(account, password) 
+        
+        if(creat_ac):
+
+            username = input('username: ')
+            
+            if_suc_signup = user.signup(username)
+            
+            if(if_suc_signup):
+                print('You did it')             #return signup success
+            else:
+                print('rrrrr')                  #return signup fail
+        
+        else:
+            if_suc_signin = user.signin()
+            
+            if(if_suc_signin):
+                print('Wellcome')               #return signin success
+            else:
+                print('Wrong')                  #return signin fail
