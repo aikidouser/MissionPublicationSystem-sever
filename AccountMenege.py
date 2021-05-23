@@ -1,7 +1,6 @@
 #%%
 import json
 
-
 #%%
 class AccountMenege:
     
@@ -33,6 +32,18 @@ class AccountMenege:
         
         return True     #Success signup
     
+    #%%
+    def signin(self):
+        
+        with open('test_json.json', 'r') as json_file:
+            user_data = json.load(json_file)
+            
+        for user in user_data:
+            if(self.account == user['account'] and self.password == user['password']):
+                return True
+            
+        return False
+            
     #%%
     def check_if_same(self, data):
         

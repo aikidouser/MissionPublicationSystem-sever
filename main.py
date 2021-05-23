@@ -1,26 +1,37 @@
 #%%
-import json
 from AccountMenege import AccountMenege
 
 #%%
 if __name__ == "__main__":
     
-    for i in range(0, 2):
-        creat_ac = input('input: ')
-        account = input('account: ')
-        password = input('password: ')
-        username = input('username: ')
+    while(True):
+        creat_ac = int(input('signup?: '))
+        account = input('account: ')            #Get account
+        password = input('password: ')          #Get password
+        user = AccountMenege(account, password) 
         
-        user = AccountMenege(account, password)
-        
-        if_success = user.signup(username)
-        
-        if(if_success):
-            print('You did it')
-        else:
-            print('rrrrr')
+        if(creat_ac):
 
-#%%
-with open ('test_json.json', 'r') as jsonfile:
-    
-    data = json.load(jsonfile)
+            username = input('username: ')
+            
+            if_suc_signup = user.signup(username)
+            
+            if(if_suc_signup):
+                print('You did it')             #return signup success
+            else:
+                print('rrrrr')                  #return signup fail
+        
+        else:
+            if_suc_signin = user.signin()
+            
+            if(if_suc_signin):
+                print('Wellcome')               #return signin success
+            else:
+                print('Wrong')                  #return signin fail
+                    
+
+# =============================================================================
+# with open ('test_json.json', 'r') as jsonfile:
+#     
+#     data = json.load(jsonfile)
+# =============================================================================
