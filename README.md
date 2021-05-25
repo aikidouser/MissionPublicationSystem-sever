@@ -1,12 +1,12 @@
 # Mission Publication System - Sever Side
 
 - [ ] Socket
+  - [ ] handle msg
 - [ ] Sign in
   - [x] Check the account and password correct
 - [ ] Sign up 
   - [x] Set the user name
   - [x] Check if there are the same account
-
 - [ ] Mission
 
 # Account manage
@@ -49,4 +49,81 @@ if_suc_signin = user.signin()
   - True
 
     - 可繼續執行
+
+# msg
+
+## Account
+- information
+    - account
+    - password
+    - user name
+
+- sign in
+    ```python=
+    account signin 'account' 'password'
+    ```
+
+- sign up
+    ```python=
+    account regist 'account' 'password' 'username'
+    ```
+
+## Mission
+
+- information
+    - name
+    - destination
+    - deadline
+    - salary
+    - content
+
+- create
+    - client -> sever
+        ```python=
+        mission create 'missionname' 'destination' 'deadline' 'salary' 'content'
+        ```
+
+- read
+    - client -> sever
+        ```python=
+        mission read
+        ```
+    - sever -> client
+        ```python=
+        mission read 'missionname' 'missionname' ......
+        ```
+
+- detail
+    - client -> sever
+        ```python=
+        mission detail 'missionname'
+        ```
+    - sever -> client
+        ```python=
+        mission detail 'missionname' 'destination' 'deadline' 'salary' 'content'
+        ```
+
+- get
+    ```python=
+    mission get 'missionname'
+    ```
+    > 比對 跟任務不同的 account 才可以 get
+
+- complete
+    ```python=
+    mission complete 'missionname'
+    ```
+    > 比對 跟任務相同的 account 才可以 complete
+
+## def msg handler
+
+- return: 
+    - dict
+    - like the information above
+
+- arg: 
+    - str(msg, encodeing='Big5')
+
+    ```python=
+    msg_dict = msg_handler(str(msg))
 
