@@ -1,7 +1,7 @@
 # Mission Publication System - Sever Side
 
 - [ ] Socket
-  - [ ] handle msg
+  - [x] handle msg
 - [ ] Sign in
   - [x] Check the account and password correct
 - [ ] Sign up 
@@ -52,21 +52,67 @@ if_suc_signin = user.signin()
 
 # msg
 
+## def msg handler
+
+- return: 
+
+  - dict
+  - like the information above
+  - ```msg_dict = msg_handler(str(msg))```
+
+- arg: 
+
+  - ```str(msg, encodeing='Big5')```
+
+
 ## Account
 - information
     - account
     - password
-    - user name
+    - username
 
 - sign in
-    ```python=
-    account signin 'account' 'password'
-    ```
-
+    - <span style="color:red"> client -> sever</span>
+    
+       - ```python
+          account signin 'account' 'password'
+          ```
+    
+    - <span style="color:green">sever -> client</span>
+    
+      - if success
+    
+        - ```python
+          account signin success 'username'
+          ```
+    
+      - if fail
+    
+        - ```python
+          account signin fail 
+          ```
+    
 - sign up
-    ```python=
-    account regist 'account' 'password' 'username'
-    ```
+
+    - <span style="color:red"> client -> sever</span>
+
+      - ```python
+        account regist 'account' 'password' 'username'
+        ```
+
+    - <span style="color:green">sever -> client</span>
+
+      - if success
+
+        - ```python
+          account regist success 'username'
+          ```
+
+      - if fail
+
+        - ```python
+          account regist fail
+          ```
 
 ## Mission
 
@@ -78,52 +124,65 @@ if_suc_signin = user.signin()
     - content
 
 - create
-    - client -> sever
-        ```python=
-        mission create 'missionname' 'destination' 'deadline' 'salary' 'content'
+    - <span style="color:red"> client -> sever</span>
+    
+        - ```python
+            mission create 'missionname' 'destination' 'deadline' 'salary' 'content'
+            ```
+    
+- read list
+    - <span style="color:red"> client -> sever</span>
+    
+        - ```python
+            mission search all
+            ```
+    
+    - <span style="color:green">sever -> client</span>
+    
+        - ```python
+            mission search 'missionname' 'missionname' ......
+            ```
+    
+- read the mission that client get
+    
+    - ```python
+        mission search get
         ```
+    
+- read the mission that client post
 
-- read
-    - client -> sever
-        ```python=
-        mission read
-        ```
-    - sever -> client
-        ```python=
-        mission read 'missionname' 'missionname' ......
+    - ```python
+        mission search post
         ```
 
 - detail
-    - client -> sever
-        ```python=
+    
+    - <span style="color:red"> client -> sever</span>
+        
+        ```python
         mission detail 'missionname'
         ```
-    - sever -> client
-        ```python=
+    - <span style="color:green">sever -> client</span>
+        
+        ```python
         mission detail 'missionname' 'destination' 'deadline' 'salary' 'content'
         ```
-
+    
 - get
-    ```python=
-    mission get 'missionname'
-    ```
-    > 比對 跟任務不同的 account 才可以 get
-
+    
+    - ```python
+        mission get 'missionname'
+        ```
+    
+    > - 比對 跟任務不同的 account 才可以 get
+    >
+    > - get 後再次回傳
+    
 - complete
-    ```python=
-    mission complete 'missionname'
-    ```
+    
+    - ```python
+        mission complete 'missionname'
+        ```
+    
     > 比對 跟任務相同的 account 才可以 complete
 
-## def msg handler
-
-- return: 
-    - dict
-    - like the information above
-
-- arg: 
-    - str(msg, encodeing='Big5')
-
-    ```python=
-    msg_dict = msg_handler(str(msg))
-    ```
