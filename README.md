@@ -72,13 +72,13 @@ if_suc_signin = user.signin()
     - username
 
 - sign in
-    - <span style="color:red"> client -> sever</span>
+    - <font color=red> client -> sever</font>
     
        - ```python
           account signin 'account' 'password'
           ```
     
-    - <span style="color:green">sever -> client</span>
+    - <font color = green>sever -> client</font>
     
       - if success
     
@@ -94,13 +94,13 @@ if_suc_signin = user.signin()
     
 - sign up
 
-    - <span style="color:red"> client -> sever</span>
+    - <font color=red> client -> sever</font>
 
       - ```python
         account regist 'account' 'password' 'username'
         ```
 
-    - <span style="color:green">sever -> client</span>
+    - <font color = green>sever -> client</font>
 
       - if success
 
@@ -118,33 +118,49 @@ if_suc_signin = user.signin()
 
 - information
     - name
+
     - destination
+
     - deadline
+
     - salary
+
     - content
 
+    - account
+
+      > the person who post this mission
+
+    - get
+
+      > who get this  mission
+
+    - complete
+
+      > if complete
+
 - create
-    - <span style="color:red"> client -> sever</span>
+    - <font color=red> client -> sever</font>
     
         - ```python
             mission create 'missionname' 'destination' 'deadline' 'salary' 'content'
             ```
     
 - read list
-    - <span style="color:red"> client -> sever</span>
+    - <font color=red> client -> sever</font>
     
         - ```python
             mission search all
             ```
     
-    - <span style="color:green">sever -> client</span>
+    - <font color = green>sever -> client</font>
     
         - ```python
             mission search 'missionname' 'missionname' ......
             ```
     
 - read the mission that client get
-    
+  
     - ```python
         mission search get
         ```
@@ -156,20 +172,20 @@ if_suc_signin = user.signin()
         ```
 
 - detail
-    
-    - <span style="color:red"> client -> sever</span>
-        
+  
+    - <font color=red> client -> sever</font>
+      
         ```python
         mission detail 'missionname'
         ```
-    - <span style="color:green">sever -> client</span>
-        
+    - <font color = green>sever -> client</font>
+      
         ```python
         mission detail 'missionname' 'destination' 'deadline' 'salary' 'content'
         ```
     
 - get
-    
+  
     - ```python
         mission get 'missionname'
         ```
@@ -179,7 +195,7 @@ if_suc_signin = user.signin()
     > - get 後再次回傳
     
 - complete
-    
+  
     - ```python
         mission complete 'missionname'
         ```
