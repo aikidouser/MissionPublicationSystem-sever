@@ -127,19 +127,18 @@ if_suc_signin = user.signin()
 
     - content
 
-    - account
+    - post
 
-      > the person who post this mission
+      > 發佈任務的人
 
     - get
 
-      > who get this  mission
+      > 接取了任務的人，如果沒有設為空
 
     - complete
 
-      > if complete
+      > 是否完成
 
-- create
     - <font color=red> client -> sever</font>
     
         - ```python
