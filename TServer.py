@@ -31,7 +31,7 @@ class MyServer(threading.Thread):
                         if_sus_signup = user.signup(account_msg['username'])
                         if if_sus_signup:
                             print('Signup Success')
-                            sus_signup_msg = 'account regist success' + user.username
+                            sus_signup_msg = 'account regist success ' + user.username
                             self.socket.sendall(sus_signup_msg.encode('Big5'))
                             
                         else:
@@ -46,7 +46,7 @@ class MyServer(threading.Thread):
                         if_sus_signin = user.signin()
                         if if_sus_signin:
                             print('Signin Success')
-                            sus_signin_msg = 'account signin success' + user.username
+                            sus_signin_msg = 'account signin success ' + user.username
                             self.socket.sendall(sus_signin_msg.encode('Big5'))
                             break
                         
