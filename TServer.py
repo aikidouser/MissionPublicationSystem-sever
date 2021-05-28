@@ -21,17 +21,14 @@ class MyServer(threading.Thread):
             try:    
                 
                 account_msg = str(self.socket.recv(1024), encoding='Big5')
-                print(account_msg)
                 account_msg = handle(account_msg)
                 
                 if account_msg['type'] == 'account':
                     
-                    print('test1')
                     user = AccountManage(account_msg['account'], account_msg['password'])
                     if account_msg['mov'] == 'regist':          #if sign up
                         
                         if_sus_signup = user.signup(account_msg['username'])
-                        print(if_sus_signup)
                         if if_sus_signup:
                             print('Signup Success')
                             sus_signup_msg = 'account regist success ' + user.username
