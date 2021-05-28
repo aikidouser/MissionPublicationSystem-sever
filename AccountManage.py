@@ -16,7 +16,8 @@ class AccountManage:
     #%% Record the new user
     def signup(self, username):
         
-        user_dict = {'username' : username,
+        self.username = username
+        user_dict = {'username' : self.username,
                      'account' : self.account,
                      'password' : self.password}
         
@@ -47,6 +48,7 @@ class AccountManage:
             
         for user in user_data:
             if(self.account == user['account'] and self.password == user['password']):
+                self.username = user['username']
                 return True
             
         return False

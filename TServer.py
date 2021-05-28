@@ -14,9 +14,57 @@ class MyServer(threading.Thread):
         
     def run(self):
         
-        print('do somethin')
+        print(threading.currentThread().name, 'start working')
         
+        try:
+            #%% if signin success, break
+            while True:
+                
+                account_msg = str(self.socket.recv(1024), encoding='Big5')
+                account_msg = handle(account_msg)
+                
+                if account_msg['type'] == 'account':
+                    
+                    user = AccountManage(account_msg['account'], account_msg['password'])
+                    if account_msg['mov'] == 'regist':          #if sign up
+                        
+                        if_sus_signup = user.signup(account_msg['username'])
+                        if if_sus_signup:
+                            print('Signup Success')
+                            sus_signup_msg = 'account regist success' + user.username
+                            self.socket.sendall(sus_signup_msg.encode('Big5'))
+                            
+                        else:
+                            print('Signup Fail')
+                            fail_signup_msg = 'account regist fail'
+                            self.socket.sendall(fail_signup_msg.encode('Big5'))
+                            
+                        continue
+                    
+                    elif account_msg['mov'] == 'signin':
+                        
+                        if_sus_signin = user.signin()
+                        if if_sus_signin:
+                            print('Signin Success')
+                            sus_signin_msg = 'account signin success' + user.username
+                            self.socket.sendall(sus_signin_msg.encode('Big5'))
+                            break
+                        
+                        else:
+                            print('Signin Fail')
+                            fail_signin_msg = 'account signin fail'
+                            self.socket.sendall(fail_signin_msg.encode('Big5'))
+                            continue
+            
+            print('you can start to use mission system')
+                
+        
+        except Exception():
+            self.socket.close()
+            print(threading.currentThread().name, 'disconnect')
+            return
 # =============================================================================
+#         #%% only for test
 #         c_message = str(self.socket.recv(1024), encoding='Big5')
 #         print('Client message is:', c_message)
 #         
