@@ -3,7 +3,7 @@ import json
 import threading
 
 #%%
-Tlock = threading.Lock()
+lock = threading.Lock()
 
 #%%
 class AccountManage:
@@ -21,7 +21,7 @@ class AccountManage:
                      'account' : self.account,
                      'password' : self.password}
         
-        Tlock.acquire()
+        lock.acquire()
         try:
             with open ('user_info.json', 'r') as json_file:
                 data = json.load(json_file)
@@ -30,13 +30,15 @@ class AccountManage:
             
         if_same = self.check_if_same(data)
         if(if_same):
+            lock.release()
             return False    #There are the same account
         
         with open('user_info.json', 'w', ) as json_file:
             data.append(user_dict)
             json.dump(data, json_file)
             
-        Tlock.release()
+        lock.release()
+
         
         return True     #Success signup
     

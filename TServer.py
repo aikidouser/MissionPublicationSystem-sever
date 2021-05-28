@@ -16,19 +16,22 @@ class MyServer(threading.Thread):
         
         print(threading.currentThread().name, 'start working')
         
-        try:
-            #%% if signin success, break
-            while True:
+        #%% if signin success, break
+        while True:
+            try:    
                 
                 account_msg = str(self.socket.recv(1024), encoding='Big5')
+                print(account_msg)
                 account_msg = handle(account_msg)
                 
                 if account_msg['type'] == 'account':
                     
+                    print('test1')
                     user = AccountManage(account_msg['account'], account_msg['password'])
                     if account_msg['mov'] == 'regist':          #if sign up
                         
                         if_sus_signup = user.signup(account_msg['username'])
+                        print(if_sus_signup)
                         if if_sus_signup:
                             print('Signup Success')
                             sus_signup_msg = 'account regist success ' + user.username
@@ -56,13 +59,12 @@ class MyServer(threading.Thread):
                             self.socket.sendall(fail_signin_msg.encode('Big5'))
                             continue
             
-            print('you can start to use mission system')
-                
+            except Exception():
+                self.socket.close()
+                print(threading.currentThread().name, 'disconnect')
+                return
         
-        except Exception():
-            self.socket.close()
-            print(threading.currentThread().name, 'disconnect')
-            return
+        print('you can start to use mission system')
 # =============================================================================
 #         #%% only for test
 #         c_message = str(self.socket.recv(1024), encoding='Big5')
