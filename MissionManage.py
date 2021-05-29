@@ -48,22 +48,22 @@ class MissionManage:
     #%% mission search
     def search(self, username, agp):
         
-        self.missionlist = ''
+        self.missionsearch = ''
         try:
             with open('mission_info.json', 'r') as json_file:
                 mission_data = json.load(json_file)
                 
             if agp == 'all':
                 for mission in mission_data:
-                    self.missionlist += (' ' + mission['missionname'])
+                    self.missionsearch += (' ' + mission['missionname'])
             elif agp == 'get':
                 for mission in mission_data:
                     if username == mission['getname']:
-                        self.missionlist += (' ' + mission['missionname'])
+                        self.missionsearch += (' ' + mission['missionname'])
             elif agp == 'post':
                 for mission in mission_data:
                     if username == mission['postname']:
-                        self.missionlist += (' ' + mission['missionname'])
+                        self.missionsearch += (' ' + mission['missionname'])
 
         except Exception:    
             return False
