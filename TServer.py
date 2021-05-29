@@ -17,9 +17,10 @@ class MyServer(threading.Thread):
         print(threading.currentThread().name, 'start working')
         
         #%% if signin success, break
-        while True:
-            try:    
-                
+        
+        try:
+            while True:
+                    
                 account_msg = str(self.socket.recv(1024), encoding='Big5')
                 account_msg = handle(account_msg)
                 
@@ -55,13 +56,14 @@ class MyServer(threading.Thread):
                             fail_signin_msg = 'account signin fail'
                             self.socket.sendall(fail_signin_msg.encode('Big5'))
                             continue
+                        
+            print('you can start to use mission system')
             
-            except Exception():
-                self.socket.close()
-                print(threading.currentThread().name, 'disconnect')
-                return
+        except Exception():
+            self.socket.close()
+            print(threading.currentThread().name, 'disconnect')
+            return
         
-        print('you can start to use mission system')
 # =============================================================================
 #         #%% only for test
 #         c_message = str(self.socket.recv(1024), encoding='Big5')

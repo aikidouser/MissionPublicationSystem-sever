@@ -22,6 +22,9 @@ def handle(msg_s):
             info['salary'] = msg_l[5]
             info['content'] = msg_l[6]
             
+        elif info['mov'] == 'search':
+            info['agp'] = msg_l[2]
+        
         elif info['mov'] == 'detail':
             info['missionname'] = msg_l[2]
             
@@ -30,7 +33,7 @@ def handle(msg_s):
             
         elif info['mov'] == 'complete':
             info['missionname'] = msg_l[2]
-    
+        
     return info
 
 #%% Only for test
@@ -42,7 +45,9 @@ if __name__ == '__main__':
     msgs.append('account signin alan987 password')
     msgs.append('account regist jack1234 password jack')
     msgs.append('mission create write_python empty 6/16 100 finish_the_python_final_project')
-    msgs.append('mission read')
+    msgs.append('mission search all')
+    msgs.append('mission search get')
+    msgs.append('mission search post')
     msgs.append('mission detail write_python')
     msgs.append('mission get write_python')
     msgs.append('mission complete write_python')
