@@ -133,13 +133,3 @@ class MyServer(threading.Thread):
                 self.socket.close()
                 print(threading.currentThread().name, 'disconnect')
                 return  
-# =============================================================================
-#         #%% only for test
-#         c_message = str(self.socket.recv(1024), encoding='Big5')
-#         print('Client message is:', c_message)
-#         
-#         s_message = '我在這'
-#         self.socket.send(s_message.encode('Big5'))
-#         
-#         self.socket.close()
-# =============================================================================
