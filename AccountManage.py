@@ -45,14 +45,18 @@ class AccountManage:
     #%%
     def signin(self):
         
-        with open('user_info.json', 'r') as json_file:
-            user_data = json.load(json_file)
-            
-        for user in user_data:
-            if(self.account == user['account'] and self.password == user['password']):
-                self.username = user['username']
-                return True
-            
+        try:
+            with open('user_info.json', 'r') as json_file:
+                user_data = json.load(json_file)
+                
+            for user in user_data:
+                if(self.account == user['account'] and self.password == user['password']):
+                    self.username = user['username']
+                    return True
+
+        except Exception:    
+            pass
+        
         return False
             
     #%%
