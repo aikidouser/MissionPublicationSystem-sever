@@ -40,7 +40,6 @@ class AccountManage:
             json.dump(user_data, json_file)
             
         lock.release()
-
         print('Signup Success')
         return signup_msg + ' success'     #Success signup
     
@@ -48,7 +47,6 @@ class AccountManage:
     def signin(self):
         
         signin_msg = 'account signin'
-        
         try:
             with open('user_info.json', 'r') as json_file:
                 user_data = json.load(json_file)
@@ -64,7 +62,7 @@ class AccountManage:
         
         print('Signin Fail')
         return signin_msg + ' fail'
-            
+
     #%%
     def check_if_same(self, data):
         

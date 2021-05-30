@@ -14,23 +14,6 @@ class MissionManage:
     #%% mission create
     def create(self, mission_data, account):
 
-# =============================================================================
-#         self.missionname = missionname
-#         self.destination = destination
-#         self.deadline = deadline
-#         self.salary = salary
-#         self.content = content
-#         self.postname = postname
-#         self.getname = 'none'
-# 
-#         mission_dict = {'missionname' : self.missionname,
-#                         'destination' : self.destination,
-#                         'deadline' : self.deadline,
-#                         'salary' : self.salary,
-#                         'content' : self.content,
-#                         'postname' : self.postname,
-#                         'getname' : self.getname}
-# =============================================================================
         mission_data['postname'] = account
         mission_data['getname'] = 'none'        
 
@@ -51,7 +34,6 @@ class MissionManage:
         create_msg = 'mission create success ' + mission_data['missionname']
         
         return create_msg       #mission create Success
-
 
     #%% mission search
     def search(self, account, agp):
@@ -115,7 +97,6 @@ class MissionManage:
         get_msg = 'mission get'
         
         lock.acquire()
-        
         try:
             with open('mission_info.json', 'r') as json_file:
                 mission_data = json.load(json_file)
@@ -139,22 +120,13 @@ class MissionManage:
         lock.release()
         print('Mission Get Fail')
         return get_msg + ' fail'
-# =============================================================================
-#         if if_sus_get:
-#             return True
-#         elif if_sus_get:
-#             return False
-# =============================================================================
-        
 
     #%% mission complete
     def complete(self, account, missionname):
         
-        #if_sus_complete = False
         complete_msg = 'mission complete'
         
         lock.acquire()
- 
         try:
             with open('mission_info.json', 'r') as json_file:
                 mission_data = json.load(json_file)
@@ -177,10 +149,3 @@ class MissionManage:
         lock.release()
         print('Mission Complete Fail')
         return complete_msg +' fail'
-        
-# =============================================================================
-#         if if_sus_complete:
-#             return True
-#         elif if_sus_complete:
-#             return False
-# =============================================================================
