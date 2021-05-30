@@ -87,66 +87,82 @@ class MyServer(threading.Thread):
     
                             continue
                         
-                        #mission search
+                        #%% mission search
                         elif mission_msg['mov'] == 'search':
                             
-                            if_sus_search = mission.search(user.username, mission_msg['agp'])
-                            if if_sus_search:
-                                print('Mission Search Success')
-                                if mission.missionsearch == '':
-                                    mission.missionsearch = ' no results'
-                                sus_search_msg = 'mission search' + mission.missionsearch
-                                self.socket.sendall(sus_search_msg.encode('Big5'))
-                            elif if_sus_search:
-                                print('Mission Search Fail')
-                                sus_search_msg = 'mission search no results'
-                                self.socket.sendall(sus_search_msg.encode('Big5'))
+                            search_msg = mission.search(user.username, mission_msg['agp'])
+# =============================================================================
+#                             if_sus_search = mission.search(user.username, mission_msg['agp'])
+#                             if if_sus_search:
+#                                 print('Mission Search Success')
+#                                 if mission.missionsearch == '':
+#                                     mission.missionsearch = ' no results'
+#                                 sus_search_msg = 'mission search' + mission.missionsearch
+#                                 self.socket.sendall(sus_search_msg.encode('Big5'))
+#                             elif if_sus_search:
+#                                 print('Mission Search Fail')
+#                                 sus_search_msg = 'mission search no results'
+#                                 self.socket.sendall(sus_search_msg.encode('Big5'))
+# =============================================================================
+                            self.socket.sendall(search_msg.encode('Big5'))
+                            
                             continue
     
-                        #mission detail
+                        #%% mission detail
                         elif mission_msg['mov'] == 'detail':
                             
-                            if_sus_detail = mission.detail(mission_msg['missionname'])
-                            if if_sus_detail:
-                                print('Mission Detail Success')
-                                if mission.missiondetail == '':
-                                    mission.missiondetail = ' no results'
-                                sus_detail_msg = 'mission detail' + mission.missiondetail
-                                self.socket.sendall(sus_detail_msg.encode('Big5'))
-                            elif if_sus_detail:
-                                print('Mission Detail Fail')
-                                sus_detail_msg = 'mission detail no results'
-                                self.socket.sendall(sus_detail_msg.encode('Big5'))
+                            detail_msg = mission.detail(mission_msg['missionname'])
+# =============================================================================
+#                             if if_sus_detail:
+#                                 print('Mission Detail Success')
+#                                 if mission.missiondetail == '':
+#                                     mission.missiondetail = ' no results'
+#                                 sus_detail_msg = 'mission detail' + mission.missiondetail
+#                                 self.socket.sendall(sus_detail_msg.encode('Big5'))
+#                             elif if_sus_detail:
+#                                 print('Mission Detail Fail')
+#                                 sus_detail_msg = 'mission detail no results'
+#                                 self.socket.sendall(sus_detail_msg.encode('Big5'))
+# =============================================================================
+                            self.socket.sendall(detail_msg.encode('Big5'))
                             continue
     
-                        #mission get
+                        #%% mission get
                         elif mission_msg['mov'] == 'get':
                             
-                            if_sus_get = mission.get(user.username, mission_msg['missionname'])
-                            if if_sus_get:
-                                print('Mission Get Success')
-                                sus_get_msg = 'mission get ' + mission_msg['missionname'] + ' success'
-                                self.socket.sendall(sus_get_msg.encode('Big5'))
-                            elif if_sus_get:
-                                print('Mission Get Fail')
-                                sus_get_msg = 'mission get fail'
-                                self.socket.sendall(sus_get_msg.encode('Big5'))
+                            get_msg = mission.get(user.username, mission_msg['missionname'])
+# =============================================================================
+#                             if if_sus_get:
+#                                 print('Mission Get Success')
+#                                 sus_get_msg = 'mission get ' + mission_msg['missionname'] + ' success'
+#                                 self.socket.sendall(sus_get_msg.encode('Big5'))
+#                             elif if_sus_get:
+#                                 print('Mission Get Fail')
+#                                 sus_get_msg = 'mission get fail'
+#                                 self.socket.sendall(sus_get_msg.encode('Big5'))
+# =============================================================================
+                            self.socket.sendall(get_msg.encode('Big5'))
                             continue
     
-                        #mission complete
+                        #%% mission complete
                         elif mission_msg['mov'] == 'complete':
                             
-                            if_sus_complete = mission.complete(user.username, mission_msg['missionname'])
-                            if if_sus_complete:
-                                print('Mission Complete Success')
-                                sus_complete_msg = 'mission complete ' + mission_msg['missionname'] + ' success'
-                                self.socket.sendall(sus_complete_msg.encode('Big5'))
-                            elif if_sus_complete:
-                                print('Mission Complete Fail')
-                                sus_complete_msg = 'mission complete fail'
-                                self.socket.sendall(sus_complete_msg.encode('Big5'))
+                            complete_msg = mission.complete(user.username, mission_msg['missionname'])
+# =============================================================================
+#                             if_sus_complete = mission.complete(user.username, mission_msg['missionname'])
+#                             if if_sus_complete:
+#                                 print('Mission Complete Success')
+#                                 sus_complete_msg = 'mission complete ' + mission_msg['missionname'] + ' success'
+#                                 self.socket.sendall(sus_complete_msg.encode('Big5'))
+#                             elif if_sus_complete:
+#                                 print('Mission Complete Fail')
+#                                 sus_complete_msg = 'mission complete fail'
+#                                 self.socket.sendall(sus_complete_msg.encode('Big5'))
+# =============================================================================
+                            self.socket.sendall(complete_msg.encode('Big5'))
                             continue
-            
+        
+        #%% disconnect
         except Exception():
             self.socket.close()
             print(threading.currentThread().name, 'disconnect')
