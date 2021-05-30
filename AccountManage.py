@@ -16,6 +16,7 @@ class AccountManage:
     #%% Record the new user
     def signup(self, username):
         
+        signup_msg = 'account regist'
         self.username = username
         user_dict = {'username' : self.username,
                      'account' : self.account,
@@ -24,26 +25,29 @@ class AccountManage:
         lock.acquire()
         try:
             with open ('user_info.json', 'r') as json_file:
-                data = json.load(json_file)
+                user_data = json.load(json_file)
         except Exception:
-            data = list()
+            user_data = list()
             
-        if_same = self.check_if_same(data)
+        if_same = self.check_if_same(user_data)
         if(if_same):
             lock.release()
-            return False    #There are the same account
+            print('Signup Fail')
+            return signup_msg + ' fail'    #There are the same account
         
         with open('user_info.json', 'w', ) as json_file:
-            data.append(user_dict)
-            json.dump(data, json_file)
+            user_data.append(user_dict)
+            json.dump(user_data, json_file)
             
         lock.release()
 
-        
-        return True     #Success signup
+        print('Signup Success')
+        return signup_msg + ' success'     #Success signup
     
     #%%
     def signin(self):
+        
+        signin_msg = 'account signin'
         
         try:
             with open('user_info.json', 'r') as json_file:
@@ -52,12 +56,14 @@ class AccountManage:
             for user in user_data:
                 if(self.account == user['account'] and self.password == user['password']):
                     self.username = user['username']
-                    return True
+                    print('Signin Success')
+                    return signin_msg + ' success ' + self.username
 
         except Exception:    
             pass
         
-        return False
+        print('Signin Fail')
+        return signin_msg + ' fail'
             
     #%%
     def check_if_same(self, data):

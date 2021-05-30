@@ -29,35 +29,22 @@ class MyServer(threading.Thread):
                     user = AccountManage(account_msg['account'], account_msg['password'])
                     if account_msg['mov'] == 'regist':          #if sign up
                         
-                        if_sus_signup = user.signup(account_msg['username'])
-                        if if_sus_signup:
-                            print('Signup Success')
-                            sus_signup_msg = 'account regist success'
-                            self.socket.sendall(sus_signup_msg.encode('Big5'))
-                            
-                        else:
-                            print('Signup Fail')
-                            fail_signup_msg = 'account regist fail'
-                            self.socket.sendall(fail_signup_msg.encode('Big5'))
-                            
+                        signup_msg = user.signup(account_msg['username'])
+                        self.socket.sendall(signup_msg.encode('Big5'))
                         continue
                     
                     elif account_msg['mov'] == 'signin':
                         
-                        if_sus_signin = user.signin()
-                        if if_sus_signin:
-                            print('Signin Success')
-                            sus_signin_msg = 'account signin success ' + user.username
-                            self.socket.sendall(sus_signin_msg.encode('Big5'))
+                        signin_msg = user.signin()
+                        if 'success' in signin_msg:
+                            self.socket.sendall(signin_msg.encode('Big5'))
                             break
                         
                         else:
-                            print('Signin Fail')
-                            fail_signin_msg = 'account signin fail'
-                            self.socket.sendall(fail_signin_msg.encode('Big5'))
+                            self.socket.sendall(signin_msg.encode('Big5'))
                             continue
                         
-            print('you can start to use mission system')
+            print('client can start to use mission system')
             
             #%% Mission System
             while True:
