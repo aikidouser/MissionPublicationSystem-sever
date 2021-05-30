@@ -12,7 +12,7 @@ class MissionManage:
         1 == 1
     
     #%% mission create
-    def create(self, mission_data, username):
+    def create(self, mission_data, account):
 
 # =============================================================================
 #         self.missionname = missionname
@@ -31,7 +31,7 @@ class MissionManage:
 #                         'postname' : self.postname,
 #                         'getname' : self.getname}
 # =============================================================================
-        mission_data['postname'] = username
+        mission_data['postname'] = account
         mission_data['getname'] = 'none'        
 
         lock.acquire()
@@ -54,7 +54,7 @@ class MissionManage:
 
 
     #%% mission search
-    def search(self, username, agp):
+    def search(self, account, agp):
         
         #self.missionsearch = ''
         search_msg = 'mission search'
@@ -69,12 +69,12 @@ class MissionManage:
             
             elif agp == 'get':
                 for mission in mission_data:
-                    if username == mission['getname']:
+                    if account == mission['getname']:
                         search_msg += ' ' + mission['missionname']
                         
             elif agp == 'post':
                 for mission in mission_data:
-                    if username == mission['postname']:
+                    if account == mission['postname']:
                         search_msg += ' ' + mission['missionname']
 
         except Exception:    
@@ -94,7 +94,7 @@ class MissionManage:
                 
             for mission in mission_data:
                 if missionname == mission['missionname'] and mission['getname'] == 'none':
-                    detail_msg = ' ' + mission['missionname'] \
+                    detail_msg += ' ' + mission['missionname'] \
                                  + ' ' + mission['destination'] \
                                  + ' ' + mission['deadline'] \
                                  + ' ' + mission['salary'] \
@@ -109,7 +109,7 @@ class MissionManage:
         return detail_msg + ' fail'
 
     #%% mission get
-    def get(self, username, missionname):
+    def get(self, account, missionname):
         
         #if_sus_get = False
         get_msg = 'mission get'
@@ -121,8 +121,8 @@ class MissionManage:
                 mission_data = json.load(json_file)
                 
             for mission in mission_data:
-                if username != mission['postname'] and mission['missionname'] == missionname and mission['getname'] == 'none':
-                    mission['getname'] = username
+                if account != mission['postname'] and mission['missionname'] == missionname and mission['getname'] == 'none':
+                    mission['getname'] = account
                     #if_sus_get = True
                     get_msg += ' success ' + missionname
                     
@@ -148,7 +148,7 @@ class MissionManage:
         
 
     #%% mission complete
-    def cmoplete(self, username, missionname):
+    def complete(self, account, missionname):
         
         #if_sus_complete = False
         complete_msg = 'mission complete'
@@ -160,7 +160,7 @@ class MissionManage:
                 mission_data = json.load(json_file)
                 
             for mission in mission_data:
-                if username == mission['getname'] and missionname == mission['missionname']:
+                if account == mission['getname'] and missionname == mission['missionname']:
                     mission_data.remove(mission)
                     complete_msg += ' ' + missionname
                     
