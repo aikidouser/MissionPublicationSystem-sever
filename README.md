@@ -125,16 +125,3 @@ tags: 1092, Python
     ```python=
     msg_dict = msg_handler(str(msg))
     ```
-# Mission
-
-## init
-
-## Create
-
-## Read
-
-## Detail
-
-## Get
-
-## Complete
