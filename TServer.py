@@ -63,7 +63,7 @@ class MyServer(threading.Thread):
 #                                                            mission_msg['deadline'], mission_msg['salary'], 
 #                                                            mission_msg['content'], user.username)
 # =============================================================================
-                            create_msg = mission.create(mission_msg, user.username)
+                            create_msg = mission.create(mission_msg, user.account)
 
 # =============================================================================
 #                             if if_sus_create:
@@ -77,7 +77,7 @@ class MyServer(threading.Thread):
                         #%% mission search
                         elif mission_msg['mov'] == 'search':
                             
-                            search_msg = mission.search(user.username, mission_msg['agp'])
+                            search_msg = mission.search(user.account, mission_msg['agp'])
 # =============================================================================
 #                             if_sus_search = mission.search(user.username, mission_msg['agp'])
 #                             if if_sus_search:
@@ -117,7 +117,7 @@ class MyServer(threading.Thread):
                         #%% mission get
                         elif mission_msg['mov'] == 'get':
                             
-                            get_msg = mission.get(user.username, mission_msg['missionname'])
+                            get_msg = mission.get(user.account, mission_msg['missionname'])
 # =============================================================================
 #                             if if_sus_get:
 #                                 print('Mission Get Success')
@@ -134,7 +134,7 @@ class MyServer(threading.Thread):
                         #%% mission complete
                         elif mission_msg['mov'] == 'complete':
                             
-                            complete_msg = mission.complete(user.username, mission_msg['missionname'])
+                            complete_msg = mission.complete(user.account, mission_msg['missionname'])
 # =============================================================================
 #                             if_sus_complete = mission.complete(user.username, mission_msg['missionname'])
 #                             if if_sus_complete:
@@ -150,7 +150,7 @@ class MyServer(threading.Thread):
                             continue
         
         #%% disconnect
-        except Exception():
+        except Exception:
             self.socket.close()
             print(threading.currentThread().name, 'disconnect')
             return  
