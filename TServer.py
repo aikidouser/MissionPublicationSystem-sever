@@ -81,7 +81,7 @@ class MyServer(threading.Thread):
                                                        mission_msg['content'], user.username)
                         if if_sus_create:
                             print('Mission Create Success')
-                            sus_create_msg = 'Mission Create Success ' + mission.missionname
+                            sus_create_msg = 'mission create success ' + mission.missionname
                             self.socket.sendall(sus_create_msg.encode('Big5'))
 
                         continue
@@ -92,9 +92,14 @@ class MyServer(threading.Thread):
                         if_sus_search = mission.search(user.username, mission_msg['agp'])
                         if if_sus_search:
                             print('Mission Search Success')
-                            sus_search_msg = 'Mission Search' + mission.missionlist
+                            if mission.missionsearch == '':
+                                mission.missionsearch = ' no results'
+                            sus_search_msg = 'mission search' + mission.missionsearch
                             self.socket.sendall(sus_search_msg.encode('Big5'))
-                    
+                        elif if_sus_search:
+                            print('Mission Search Fail')
+                            sus_search_msg = 'mission search no results'
+                            self.socket.sendall(sus_search_msg.encode('Big5'))
                         continue
 
                     #mission detail
@@ -103,9 +108,14 @@ class MyServer(threading.Thread):
                         if_sus_detail = mission.detail(mission_msg['missionname'])
                         if if_sus_detail:
                             print('Mission Detail Success')
-                            sus_detail_msg = 'Mission Detail' + mission.missiondetail
+                            if mission.missiondetail == '':
+                                mission.missiondetail = ' no results'
+                            sus_detail_msg = 'mission detail' + mission.missiondetail
                             self.socket.sendall(sus_detail_msg.encode('Big5'))
-                    
+                        elif if_sus_detail:
+                            print('Mission Detail Fail')
+                            sus_detail_msg = 'mission detail no results'
+                            self.socket.sendall(sus_detail_msg.encode('Big5'))
                         continue
 
                     #mission get
@@ -114,9 +124,12 @@ class MyServer(threading.Thread):
                         if_sus_get = mission.get(user.username, mission_msg['missionname'])
                         if if_sus_get:
                             print('Mission Get Success')
-                            sus_get_msg = 'Mission Get ' + mission_msg['missionname'] + ' Success'
+                            sus_get_msg = 'mission get ' + mission_msg['missionname'] + ' success'
                             self.socket.sendall(sus_get_msg.encode('Big5'))
-                    
+                        elif if_sus_get:
+                            print('Mission Get Fail')
+                            sus_get_msg = 'mission get fail'
+                            self.socket.sendall(sus_get_msg.encode('Big5'))
                         continue
 
                     #mission complete
@@ -125,9 +138,12 @@ class MyServer(threading.Thread):
                         if_sus_complete = mission.complete(user.username, mission_msg['missionname'])
                         if if_sus_complete:
                             print('Mission Complete Success')
-                            sus_complete_msg = 'Mission Complete ' + mission_msg['missionname'] + ' Success'
+                            sus_complete_msg = 'mission complete ' + mission_msg['missionname'] + ' success'
                             self.socket.sendall(sus_complete_msg.encode('Big5'))
-                    
+                        elif if_sus_complete:
+                            print('Mission Complete Fail')
+                            sus_complete_msg = 'mission complete fail'
+                            self.socket.sendall(sus_complete_msg.encode('Big5'))
                         continue
             
             except Exception():

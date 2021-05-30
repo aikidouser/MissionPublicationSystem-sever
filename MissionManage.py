@@ -36,7 +36,7 @@ class MissionManage:
         except Exception:
             data = list()
 
-        with open('mission_info.json', 'w', ) as json_file:
+        with open('mission_info.json', 'w') as json_file:
             data.append(mission_dict)
             json.dump(data, json_file)
             
@@ -48,49 +48,49 @@ class MissionManage:
     #%% mission search
     def search(self, username, agp):
         
-        mission_list = ''
+        self.missionsearch = ''
         try:
             with open('mission_info.json', 'r') as json_file:
                 mission_data = json.load(json_file)
                 
             if agp == 'all':
                 for mission in mission_data:
-                    mission_list += (' ' + mission['missionname'])
+                    self.missionsearch += (' ' + mission['missionname'])
             elif agp == 'get':
                 for mission in mission_data:
                     if username == mission['getname']:
-                        mission_list += (' ' + mission['missionname'])
+                        self.missionsearch += (' ' + mission['missionname'])
             elif agp == 'post':
                 for mission in mission_data:
                     if username == mission['postname']:
-                        mission_list += (' ' + mission['missionname'])
-            self.missionlist = mission_list
+                        self.missionsearch += (' ' + mission['missionname'])
 
         except Exception:    
-            pass
+            return False
         
         return True
 
     #%% mission detail
     def detail(self, missionname):
         
-        mission_detail = ''
+        self.missiondetail = ''
         try:
             with open('mission_info.json', 'r') as json_file:
                 mission_data = json.load(json_file)
             for mission in mission_data:
                 if missionname == mission['missionname']:
-                    mission_detail = ' ' + mission['missionname'] + ' ' + mission['destination'] + ' ' + mission['deadline'] + ' ' + mission['salary'] + ' ' + mission['content']
+                    self.missiondetail = ' ' + mission['missionname'] + ' ' + mission['destination'] + ' ' + mission['deadline'] + ' ' + mission['salary'] + ' ' + mission['content']
                     break
-            self.missiondetail = mission_detail
 
         except Exception:    
-            pass
+            return False
         
         return True
 
     #%% mission get
     def get(self, username, missionname):
+        
+        if_sus_get = False
         
         lock.acquire()
  
@@ -100,20 +100,27 @@ class MissionManage:
             for mission in mission_data:
                 if username != mission['postname'] and missionname == mission['missionname']:
                     mission['getname'] = username
+                    if_sus_get = True
                     break
 
         except Exception:    
-            pass
+            lock.release()
+            return False
         
-        with open('mission_info.json', 'w', ) as json_file:
+        with open('mission_info.json', 'w') as json_file:
             json.dump(mission_data, json_file)
 
         lock.release()
-
-        return True
+        
+        if if_sus_get:
+            return True
+        elif if_sus_get:
+            return False
 
     #%% mission complete
     def cmoplete(self, username, missionname):
+        
+        if_sus_complete = False
         
         lock.acquire()
  
@@ -123,14 +130,19 @@ class MissionManage:
             for mission in mission_data:
                 if username == mission['getname'] and missionname == mission['missionname']:
                     mission_data.remove(mission)
+                    if_sus_complete = True
                     break
 
         except Exception:    
-            pass
+            lock.release()
+            return False
         
-        with open('mission_info.json', 'w', ) as json_file:
+        with open('mission_info.json', 'w') as json_file:
             json.dump(mission_data, json_file)
 
         lock.release()
         
-        return True
+        if if_sus_complete:
+            return True
+        elif if_sus_complete:
+            return False
