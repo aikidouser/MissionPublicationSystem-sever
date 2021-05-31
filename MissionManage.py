@@ -75,8 +75,9 @@ class MissionManage:
                 mission_data = json.load(json_file)
                 
             for mission in mission_data:
-                if missionname == mission['missionname'] and mission['getname'] == 'none':
-                    detail_msg += ' ' + mission['missionname'] \
+                if missionname == mission['missionname']:
+                    detail_msg += ' ' + mission['postname'] \
+                                 + ' ' + mission['missionname'] \
                                  + ' ' + mission['destination'] \
                                  + ' ' + mission['deadline'] \
                                  + ' ' + mission['salary'] \
