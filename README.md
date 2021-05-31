@@ -81,7 +81,7 @@ tags: 1092, Python
         ```
     - sever -> client
         ```python=
-        mission detail 'missionname' 'destination' 'deadline' 'salary' 'content'
+        mission detail 'postname' 'missionname' 'destination' 'deadline' 'salary' 'content'
         ```
         > json未建立 或 無此任務
         ```python=
