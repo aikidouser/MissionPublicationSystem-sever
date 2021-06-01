@@ -5,7 +5,7 @@ from TServer import MyServer
 #%%
 if __name__ == '__main__':
     
-    HOST = '140.115.200.115'
+    HOST = '127.0.0.1'
     PORT = 8000
     
     s_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

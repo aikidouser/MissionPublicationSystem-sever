@@ -19,12 +19,12 @@ class MissionManage:
 
         lock.acquire()
         try:
-            with open ('mission_info.json', 'r') as json_file:
+            with open ('./json/mission_info.json', 'r') as json_file:
                 data = json.load(json_file)
         except Exception:
             data = list()
 
-        with open('mission_info.json', 'w') as json_file:
+        with open ('./json/mission_info.json', 'w') as json_file:
             data.append(mission_data)
             json.dump(data, json_file)
             
@@ -41,7 +41,7 @@ class MissionManage:
         #self.missionsearch = ''
         search_msg = 'mission search'
         try:
-            with open('mission_info.json', 'r') as json_file:
+            with open ('./json/mission_info.json', 'r') as json_file:
                 mission_data = json.load(json_file)
                 
             if agp == 'all':
@@ -71,7 +71,7 @@ class MissionManage:
         #self.missiondetail = ''
         detail_msg = 'mission detail'
         try:
-            with open('mission_info.json', 'r') as json_file:
+            with open ('./json/mission_info.json', 'r') as json_file:
                 mission_data = json.load(json_file)
                 
             for mission in mission_data:
@@ -99,7 +99,7 @@ class MissionManage:
         
         lock.acquire()
         try:
-            with open('mission_info.json', 'r') as json_file:
+            with open ('./json/mission_info.json', 'r') as json_file:
                 mission_data = json.load(json_file)
                 
             for mission in mission_data:
@@ -108,7 +108,7 @@ class MissionManage:
                     #if_sus_get = True
                     get_msg += ' success ' + missionname
                     
-                    with open('mission_info.json', 'w') as json_file:
+                    with open('./json/mission_info.json', 'w') as json_file:
                         json.dump(mission_data, json_file)
                     
                     lock.release()
@@ -129,7 +129,7 @@ class MissionManage:
         
         lock.acquire()
         try:
-            with open('mission_info.json', 'r') as json_file:
+            with open ('./json/mission_info.json', 'r') as json_file:
                 mission_data = json.load(json_file)
                 
             for mission in mission_data:
@@ -137,7 +137,7 @@ class MissionManage:
                     mission_data.remove(mission)
                     complete_msg += ' ' + missionname
                     
-                    with open('mission_info.json', 'w') as json_file:
+                    with open('./json/mission_info.json', 'w') as json_file:
                         json.dump(mission_data, json_file)
                     
                     lock.release()

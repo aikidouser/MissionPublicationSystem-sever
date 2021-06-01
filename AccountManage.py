@@ -24,7 +24,7 @@ class AccountManage:
         
         lock.acquire()
         try:
-            with open ('user_info.json', 'r') as json_file:
+            with open ('./json/user_info.json', 'r') as json_file:
                 user_data = json.load(json_file)
         except Exception:
             user_data = list()
@@ -35,7 +35,7 @@ class AccountManage:
             print('Signup Fail')
             return signup_msg + ' fail'    #There are the same account
         
-        with open('user_info.json', 'w', ) as json_file:
+        with open('./json/user_info.json', 'w', ) as json_file:
             user_data.append(user_dict)
             json.dump(user_data, json_file)
             
@@ -48,7 +48,7 @@ class AccountManage:
         
         signin_msg = 'account signin'
         try:
-            with open('user_info.json', 'r') as json_file:
+            with open('./json/user_info.json', 'r') as json_file:
                 user_data = json.load(json_file)
                 
             for user in user_data:
