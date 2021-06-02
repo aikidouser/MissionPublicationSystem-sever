@@ -91,6 +91,15 @@ tags: 1092, Python
         mission detail fail
         ```
         > 應不會發生
+- score
+    - client -> sever
+        ```python=
+        mission score 'missionname' 1/-1
+        ```
+    - sever -> client
+        ```python=
+        mission score success/fail
+        ```
 - get
     - client -> sever
         ```python=
@@ -116,7 +125,6 @@ tags: 1092, Python
         ```python=
         mission complete 'missionname'
         ```
-
 ## def msg_handler
 
 - returen: 
