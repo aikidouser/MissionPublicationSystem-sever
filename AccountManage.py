@@ -20,7 +20,10 @@ class AccountManage:
         self.username = username
         user_dict = {'username' : self.username,
                      'account' : self.account,
-                     'password' : self.password}
+                     'password' : self.password,
+                     'good' : 0,
+                     'bad' : 0
+                     }
         
         lock.acquire()
         try:
