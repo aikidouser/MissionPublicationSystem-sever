@@ -80,13 +80,17 @@ tags: 1092, Python
         mission detail 'missionname'
         ```
     - sever -> client
-        ```python=
-        mission detail 'postname' 'missionname' 'destination' 'deadline' 'salary' 'content'
-        ```
-        > json未建立 或 無此任務
+        - 此帳號是否可評價此任務的接取者
+            ```python=
+            mission detail 'postname' 'missionname' 'destination' 'deadline' 'salary' 'content'  scorable/nonscorable
+            ```
+            > - 帳號需相同於post account
+            > - 任務需完成
+    - json未建立 或 無此任務
         ```python=
         mission detail fail
         ```
+        > 應不會發生
 - get
     - client -> sever
         ```python=
