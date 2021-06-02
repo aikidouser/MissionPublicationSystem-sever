@@ -15,7 +15,8 @@ class MissionManage:
     def create(self, mission_data, account):
 
         mission_data['postname'] = account
-        mission_data['getname'] = 'none'        
+        mission_data['getname'] = 'none'
+        mission_data['complete'] = 'No'        
 
         lock.acquire()
         try:
@@ -134,7 +135,7 @@ class MissionManage:
                 
             for mission in mission_data:
                 if account == mission['getname'] and missionname == mission['missionname']:
-                    mission_data.remove(mission)
+                    mission['complete'] = 'Yes'
                     complete_msg += ' ' + missionname
                     
                     with open('./json/mission_info.json', 'w') as json_file:
