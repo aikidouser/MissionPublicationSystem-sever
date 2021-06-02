@@ -38,7 +38,7 @@ class AccountManage:
             print('Signup Fail')
             return signup_msg + ' fail'    #There are the same account
         
-        with open('./json/user_info.json', 'w', ) as json_file:
+        with open('./json/user_info.json', 'w') as json_file:
             user_data.append(user_dict)
             json.dump(user_data, json_file)
             

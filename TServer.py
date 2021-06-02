@@ -71,7 +71,7 @@ class MyServer(threading.Thread):
                         #%% mission detail
                         elif mission_msg['mov'] == 'detail':
                             
-                            detail_msg = mission.detail(mission_msg['missionname'])
+                            detail_msg = mission.detail(user.account, mission_msg['missionname'])
                             self.socket.sendall(detail_msg.encode('Big5'))
                             continue
     
@@ -88,7 +88,14 @@ class MyServer(threading.Thread):
                             complete_msg = mission.complete(user.account, mission_msg['missionname'])
                             self.socket.sendall(complete_msg.encode('Big5'))
                             continue
-        
+                        
+                        #%% mission score
+                        elif mission_msg['mov'] == 'score':
+                            
+                            score_msg = mission.score(mission_msg['missionname'], mission_msg['score'])
+                            self.socket.sendall(score_msg.encode('Big5'))
+                            continue
+                            
         #%% disconnect
         except Exception:
             self.socket.close()

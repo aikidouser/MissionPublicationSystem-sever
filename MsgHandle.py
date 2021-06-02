@@ -34,6 +34,10 @@ def handle(msg_s):
         elif info['mov'] == 'complete':
             info['missionname'] = msg_l[2]
         
+        elif info['mov'] == 'score':
+            info['missionname'] = msg_l[2]
+            info['score'] = int(msg_l[3])
+            
     return info
 
 #%% Only for test
