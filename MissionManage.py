@@ -46,21 +46,37 @@ class MissionManage:
             with open ('./json/mission_info.json', 'r') as json_file:
                 mission_data = json.load(json_file)
                 
-            if agp == 'all':
-                for mission in mission_data:
-                    if mission['getaccount'] == 'none':
-                        search_msg += ' ' + mission['missionname']
-            
-            elif agp == 'get':
-                for mission in mission_data:
-                    if account == mission['getaccount']:
-                        search_msg += ' ' + mission['missionname']
-                        
-            elif agp == 'post':
-                for mission in mission_data:
-                    if account == mission['postaccount']:
-                        search_msg += ' ' + mission['missionname']
+# =============================================================================
+#             if agp == 'all':
+#                 for mission in mission_data:
+#                     if mission['getaccount'] == 'none' and not mission['score']:
+#                         search_msg += ' ' + mission['missionname']
+#             
+#             elif agp == 'get':
+#                 for mission in mission_data:
+#                     if account == mission['getaccount'] and not mission['score']:
+#                         search_msg += ' ' + mission['missionname']
+#                         
+#             elif agp == 'post':
+#                 for mission in mission_data:
+#                     if account == mission['postaccount'] and not mission['score']:
+#                         search_msg += ' ' + mission['missionname']
+# =============================================================================
 
+            for mission in mission_data:
+                if not mission['score']:
+                    if agp == 'all':
+                        if mission['getaccount'] == 'none':
+                            search_msg += ' ' + mission['missionname']
+                    
+                    elif agp == 'get':
+                        if account == mission['getaccount']:
+                            search_msg += ' ' + mission['missionname']
+                    
+                    elif agp == 'post':
+                        if account == mission['postaccount']:
+                            search_msg += ' ' + mission['missionname']
+                            
         except Exception:    
             pass
         
