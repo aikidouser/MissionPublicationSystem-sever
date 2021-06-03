@@ -84,7 +84,14 @@ class MissionManage:
                     else:
                         detail_msg += ' nonscorable'
                     
-                    detail_msg += ' ' + mission['postaccount'] \
+                    with open('./json/user_info.json', 'r') as json_file:
+                        user_data = json.load(json_file)
+                    
+                    for user in user_data:
+                        if user['account'] == mission['postaccount']:
+                            post_username = user['username']
+                            
+                    detail_msg += ' ' + post_username \
                                  + ' ' + mission['missionname'] \
                                  + ' ' + mission['destination'] \
                                  + ' ' + mission['deadline'] \
