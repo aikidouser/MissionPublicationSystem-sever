@@ -182,11 +182,13 @@ class MissionManage:
             mission_data = json.load(json_file)
         
         for mission in mission_data:
-            if mission['missionname'] == missionname and not mission['score']:
-                score_dest = mission['getaccount']
-                mission['score'] = True
-            else:
-                return score_msg + ' fail'
+            if mission['missionname'] == missionname:
+                if not mission['score']:
+                    score_dest = mission['getaccount']
+                    mission['score'] = True
+
+                else:
+                    return score_msg + ' fail'
             
         lock.acquire()
         
@@ -200,7 +202,8 @@ class MissionManage:
                 
                 elif score == -1:
                     user['bad'] += -1
-            break
+                    
+                break
         
         with open('./json/user_info.json', 'w') as json_file:
             json.dump(user_data, json_file)
