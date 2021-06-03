@@ -17,6 +17,7 @@ class MissionManage:
         mission_data['postaccount'] = account
         mission_data['getaccount'] = 'none'
         mission_data['complete'] = False        
+        mission_data['score'] = False
 
         lock.acquire()
         try:
@@ -44,22 +45,21 @@ class MissionManage:
         try:
             with open ('./json/mission_info.json', 'r') as json_file:
                 mission_data = json.load(json_file)
-                
-            if agp == 'all':
-                for mission in mission_data:
-                    if mission['getaccount'] == 'none':
-                        search_msg += ' ' + mission['missionname']
-            
-            elif agp == 'get':
-                for mission in mission_data:
-                    if account == mission['getaccount']:
-                        search_msg += ' ' + mission['missionname']
-                        
-            elif agp == 'post':
-                for mission in mission_data:
-                    if account == mission['postaccount']:
-                        search_msg += ' ' + mission['missionname']
 
+            for mission in mission_data:
+                if not mission['score']:
+                    if agp == 'all':
+                        if mission['getaccount'] == 'none':
+                            search_msg += ' ' + mission['missionname']
+                    
+                    elif agp == 'get':
+                        if account == mission['getaccount']:
+                            search_msg += ' ' + mission['missionname']
+                    
+                    elif agp == 'post':
+                        if account == mission['postaccount']:
+                            search_msg += ' ' + mission['missionname']
+                            
         except Exception:    
             pass
         
@@ -78,7 +78,7 @@ class MissionManage:
             for mission in mission_data:
                 if missionname == mission['missionname']:
                     
-                    if account == mission['postaccount'] and mission['complete']:
+                    if account == mission['postaccount'] and mission['complete'] and not mission['score']:
                         detail_msg += ' scorable'
                     
                     else:
@@ -100,7 +100,7 @@ class MissionManage:
         return detail_msg + ' fail'
 
     #%% mission get
-    def get(self, account, missionname):
+    def get(self, account, userscore, missionname):
         
         #if_sus_get = False
         get_msg = 'mission get'
@@ -111,23 +111,30 @@ class MissionManage:
                 mission_data = json.load(json_file)
                 
             for mission in mission_data:
-                if account != mission['postaccount'] and mission['missionname'] == missionname and mission['getaccount'] == 'none':
-                    mission['getaccount'] = account
-                    #if_sus_get = True
-                    get_msg += ' success ' + missionname
-                    
-                    with open('./json/mission_info.json', 'w') as json_file:
-                        json.dump(mission_data, json_file)
-                    
-                    lock.release()
-                    print('Mission Get Success')
-                    return get_msg
+                if mission['missionname'] == missionname and mission['getaccount'] == 'none':
+                    if account != mission['postaccount'] and userscore >= -3:
+                        
+                        mission['getaccount'] = account
+                        #if_sus_get = True
+                        get_msg += ' success ' + missionname
+                        
+                        with open('./json/mission_info.json', 'w') as json_file:
+                            json.dump(mission_data, json_file)
+                        
+                        lock.release()
+                        print('Mission Get Success')
+                        return get_msg
 
         except Exception:    
             pass
         
         lock.release()
-        print('Mission Get Fail')
+        
+        if userscore < -3:
+            print('Mission score fail')
+        else:
+            print('Mission Get Fail')
+        
         return get_msg + ' fail'
 
     #%% mission complete
@@ -168,9 +175,12 @@ class MissionManage:
             mission_data = json.load(json_file)
         
         for mission in mission_data:
-            if mission['missionname'] == missionname:
+            if mission['missionname'] == missionname and not mission['score']:
                 score_dest = mission['getaccount']
-        
+                mission['score'] = True
+            else:
+                return score_msg + ' fail'
+            
         lock.acquire()
         
         with open ('./json/user_info.json', 'r') as json_file:
@@ -187,6 +197,9 @@ class MissionManage:
         
         with open('./json/user_info.json', 'w') as json_file:
             json.dump(user_data, json_file)
+        
+        with open('./json/mission_info.json', 'w') as json_file:
+            json.dump(mission_data, json_file)
         
         lock.release()
         
