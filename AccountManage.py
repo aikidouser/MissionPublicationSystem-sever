@@ -63,7 +63,7 @@ class AccountManage:
                     self.bad = user['bad']
                     
                     print('Signin Success')
-                    return signin_msg + ' success ' + self.username + self.good + self.bad
+                    return signin_msg + ' success ' + self.username + ' ' + str(self.good) + ' ' + str(self.bad)
 
         except Exception:    
             pass
