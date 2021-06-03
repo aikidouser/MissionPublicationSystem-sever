@@ -78,7 +78,8 @@ class MyServer(threading.Thread):
                         #%% mission get
                         elif mission_msg['mov'] == 'get':
                             
-                            get_msg = mission.get(user.account, mission_msg['missionname'])
+                            score = user.good + user.bad
+                            get_msg = mission.get(user.account, score, mission_msg['missionname'])
                             self.socket.sendall(get_msg.encode('Big5'))
                             continue
     

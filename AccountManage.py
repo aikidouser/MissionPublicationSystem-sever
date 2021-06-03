@@ -16,13 +16,15 @@ class AccountManage:
     #%% Record the new user
     def signup(self, username):
         
+        self.good = 0
+        self.bad = 0
         signup_msg = 'account regist'
         self.username = username
         user_dict = {'username' : self.username,
                      'account' : self.account,
                      'password' : self.password,
-                     'good' : 0,
-                     'bad' : 0
+                     'good' : self.good,
+                     'bad' : self.bad
                      }
         
         lock.acquire()
@@ -57,6 +59,9 @@ class AccountManage:
             for user in user_data:
                 if(self.account == user['account'] and self.password == user['password']):
                     self.username = user['username']
+                    self.good = user['good']
+                    self.bad = user['bad']
+                    
                     print('Signin Success')
                     return signin_msg + ' success ' + self.username
 
