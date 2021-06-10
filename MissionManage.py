@@ -59,12 +59,31 @@ class MissionManage:
                     elif agp == 'post':
                         if account == mission['postaccount']:
                             search_msg += ' ' + mission['missionname']
-                            
+
         except Exception:    
             pass
         
         return search_msg
+    
+    #%% mission search keyword
+    def search_keyword(self, mdc, tar):
         
+        #self.missionsearch = ''
+        search_msg = 'mission search keyword ' + mdc
+        try:
+            with open ('./json/mission_info.json', 'r') as json_file:
+                mission_data = json.load(json_file)
+
+            for mission in mission_data:
+                if not mission['score']:
+                    if mission[mdc].find(tar) != -1:
+                        search_msg += ' ' + mission[mdc]
+                                             
+        except Exception:    
+            pass
+        
+        return search_msg
+
 
     #%% mission detail
     def detail(self, account, missionname):
