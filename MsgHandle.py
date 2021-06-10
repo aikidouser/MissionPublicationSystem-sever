@@ -23,7 +23,10 @@ def handle(msg_s):
             info['content'] = msg_l[6]
             
         elif info['mov'] == 'search':
-            info['agp'] = msg_l[2]
+            info['agpk'] = msg_l[2]
+            if info['agpk'] == 'keyword':
+                info['mdc'] = msg_l[3]
+                info['tar'] = msg_l[4]
         
         elif info['mov'] == 'detail':
             info['missionname'] = msg_l[2]
@@ -58,4 +61,3 @@ if __name__ == '__main__':
     
     for msg in msgs:
         infos.append(handle(msg))
-    
