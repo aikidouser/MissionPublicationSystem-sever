@@ -74,6 +74,19 @@ tags: 1092, Python
         ```python=
         mission search 
         ```
+- search keyword
+    - client -> sever
+        ```python=
+        mission search keyword missionname|destination|content 'target'
+        ```
+    - sever -> client
+        ```python=
+        mission search keyword missionname|destination|content 'result1' 'result2' ......
+        ```
+        > json未建立 或 無此結果
+        ```python=
+        mission search keyword missionname|destination|content
+        ```
 - detail
     - client -> sever
         ```python=
@@ -82,7 +95,7 @@ tags: 1092, Python
     - sever -> client
         - 此帳號是否可評價此任務的接取者
             ```python=
-            mission detail 'postname' 'missionname' 'destination' 'deadline' 'salary' 'content'  scorable/nonscorable
+            mission detail scorable/nonscorable 'postname' 'missionname' 'destination' 'deadline' 'salary' 'content'  
             ```
             > - 帳號需相同於post account
             > - 任務需完成
