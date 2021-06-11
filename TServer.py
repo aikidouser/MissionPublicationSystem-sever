@@ -51,7 +51,7 @@ class MyServer(threading.Thread):
                     
                     mission_msg = str(self.socket.recv(1024), encoding='Big5')
                     mission_msg = handle(mission_msg)
-                    
+
                     if mission_msg['type'] == 'mission':
                         
                         mission = MissionManage()
