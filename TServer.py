@@ -64,7 +64,10 @@ class MyServer(threading.Thread):
                         #%% mission search
                         elif mission_msg['mov'] == 'search':
                             
-                            search_msg = mission.search(user.account, mission_msg['agp'])
+                            if mission_msg['agpk'] != 'keyword':
+                                search_msg = mission.search(user.account, mission_msg['agpk'])
+                            elif mission_msg['agpk'] == 'keyword':
+                                search_msg = mission.search_keyword(mission_msg['mdc'], mission_msg['tar'])
                             self.socket.sendall(search_msg.encode('Big5'))
                             continue
     
